@@ -1,0 +1,27 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        cfg: [Release]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps (Linux/macOS)
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev cmake ninja-build; fi
+          if [[ "$RUNNER_OS" == "macOS" ]]; then brew update && brew install gmp mpfr cmake ninja; fi
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.cfg }}
+      - name: Build
+        run: cmake --build build -j
+      - name: Smoke test
+        run: ./build/piracer --digits 1000 --out pi.txt && test -s pi.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: piracer-${{ matrix.os }}
+          path: build/piracer
