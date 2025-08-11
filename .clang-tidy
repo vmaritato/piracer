@@ -1,0 +1,32 @@
+# PiRacer clang-tidy rules (balanced: useful warnings, poco rumore)
+Checks: >
+  -*,
+  clang-analyzer-*,
+  bugprone-*,
+  performance-*,
+  readability-*,
+  modernize-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-special-member-functions,
+  -modernize-use-trailing-return-type,
+  -modernize-avoid-c-arrays,
+  -readability-magic-numbers,
+  -fuchsia-*,
+  -llvmlibc-*,
+  -hicpp-*
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(src|include)/'
+FormatStyle: file
+AnalyzeTemporaryDtors: false
+
+ExtraArgs: ['-std=c++17']
+CheckOptions:
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: 'mpz_class;mpq_class;mpf_class'
+  - key: readability-braces-around-statements.ShortStatementLines
+    value: '1'

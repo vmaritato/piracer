@@ -1,0 +1,42 @@
+# PiRacer formatting rules
+BasedOnStyle: LLVM
+Language: Cpp
+Standard: c++17
+
+# Layout
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Stroustrup
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+NamespaceIndentation: All
+
+# Alignment & spacing
+AlignConsecutiveAssignments: AcrossCommentsAndStrings
+AlignConsecutiveDeclarations: AcrossEmptyLines
+AlignTrailingComments: true
+PointerAlignment: Left
+SpaceAfterCStyleCast: true
+SpacesInAngles: false
+SpaceBeforeParens: ControlStatements
+BinPackArguments: false
+BinPackParameters: false
+ReflowComments: true
+Cpp11BracedListStyle: true
+
+# Includes
+SortIncludes: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<[^/]+>$'           # C/C++ std headers
+    Priority: 0
+  - Regex: '^<gmp'
+    Priority: 1
+  - Regex: '^<mpfr'
+    Priority: 1
+  - Regex: '^<'
+    Priority: 2                 # other system headers
+  - Regex: '^"'
+    Priority: 3                 # project headers
