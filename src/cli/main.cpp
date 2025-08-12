@@ -1,5 +1,6 @@
 #include "piracer/chudnovsky.hpp"
 #include "piracer/cli_utils.hpp"
+#include "piracer/selftest.hpp"
 #include "piracer/version.hpp"
 
 #include <chrono>
@@ -36,6 +37,8 @@ namespace {
             << "                    Accepts forms like 1000000 or 1e6.\n"
             << "  -o, --out FILE    Write to FILE instead of stdout (optional).\n"
             << "  -q, --quiet       Suppress non-result logs (stderr) (optional).\n"
+            << "  -T, --self-test   Run a correctness self-test (defaults to 1000 digits;\n"
+            << "                    respects --digits if provided) and exit.\n"
             << "  -V, --version     Show version and exit.\n"
             << "  -h, --help        Show this help and exit.\n"
             << "\nEXAMPLES\n"
@@ -49,7 +52,8 @@ int main(int argc, char** argv) {
         std::size_t digits = 0;
         std::string out;
         bool quiet = false;
-
+        bool do_selftest = false;
+        
         for (int i = 1; i < argc; ++i) {
             std::string a = argv[i];
             if ((a == "--digits" || a == "-n") && i + 1 < argc) {
@@ -58,6 +62,8 @@ int main(int argc, char** argv) {
                 out = argv[++i];
             } else if (a == "--quiet" || a == "-q") {
                 quiet = true;
+            } else if (a == "--self-test" || a == "-T") {
+                do_selftest = true;
             } else if (a == "--version" || a == "-V") {
                 print_version();
                 return 0;
@@ -74,6 +80,25 @@ int main(int argc, char** argv) {
         if (digits == 0) {
             std::cerr << "Missing required option: --digits N\n";
             std::cerr << "Try '--help' for usage.\n";
+            return 1;
+        }
+
+        if (do_selftest) {
+            const std::size_t k = digits ? digits : 1000;
+            if (!quiet) {
+                print_banner();
+                std::cerr << "Running self-test at " << k << " digits...\n";
+            }
+            std::string verdict;
+            bool ok = piracer::self_test(k, &verdict);
+            std::cerr << "Self-test: " << (ok ? "OK ✅" : "FAIL ❌")
+                      << (verdict.empty() ? "" : " - " + verdict) << "\n";
+            return ok ? 0 : 3;
+        }
+
+        if (digits == 0) {
+            std::cerr << "Missing required option: --digits N\n";
+            std::cerr << "Tip: you can also run '--self-test' (defaults to 1000 digits).\n";
             return 1;
         }
 
