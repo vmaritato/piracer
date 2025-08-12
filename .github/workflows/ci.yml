@@ -32,15 +32,15 @@ jobs:
           cmake_flags="-S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.cfg }}"
           if [[ "${{ matrix.sanitizer }}" != "none" ]]; then
             if [[ "${{ matrix.sanitizer }}" == "asan" ]]; then
-              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS='-fsanitize=address -fno-omit-frame-pointer'"
-              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS='-fsanitize=address'"
+              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS=\"-fsanitize=address -fno-omit-frame-pointer\""
+              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS=\"-fsanitize=address\""
             elif [[ "${{ matrix.sanitizer }}" == "ubsan" ]]; then
-              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS='-fsanitize=undefined -fno-omit-frame-pointer'"
-              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS='-fsanitize=undefined'"
+              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS=\"-fsanitize=undefined -fno-omit-frame-pointer\""
+              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS=\"-fsanitize=undefined\""
             fi
           fi
           echo "Running: cmake $cmake_flags"
-          cmake $cmake_flags
+          eval cmake $cmake_flags
 
       - name: Build
         run: cmake --build build -j
@@ -103,7 +103,8 @@ jobs:
       - name: Install security tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y bandit safety
+          sudo apt-get install -y bandit
+          python3 -m pip install --upgrade pip
           python3 -m pip install bandit safety
 
       - name: Security scan
