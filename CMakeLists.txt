@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-project(piracer VERSION 0.2.0 LANGUAGES CXX)
+project(piracer VERSION 0.4.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -9,8 +9,16 @@ option(PIRACER_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
 option(PIRACER_ENABLE_LTO "Enable Link-Time Optimization" OFF)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GMP  REQUIRED IMPORTED_TARGET "gmp>=6.2")
-pkg_check_modules(MPFR REQUIRED IMPORTED_TARGET "mpfr>=4.1")
+# Cross-platform dependency handling
+if(WIN32)
+    # Windows: Use vcpkg or find_package
+    find_package(GMP REQUIRED)
+    find_package(MPFR REQUIRED)
+else()
+    # Unix-like: Use pkg-config
+    pkg_check_modules(GMP  REQUIRED IMPORTED_TARGET "gmp>=6.2")
+    pkg_check_modules(MPFR REQUIRED IMPORTED_TARGET "mpfr>=4.1")
+endif()
 
 if (MSVC)
   add_compile_options(/W4)
