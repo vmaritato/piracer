@@ -6,4 +6,7 @@
 namespace piracer {
     // Convert an MPFR value to a fixed-point decimal string "X.Y..." with exactly `digits` decimals.
     std::string mpfr_to_fixed_decimal(const mpfr_t v, std::size_t digits);
+    
+    // Convert an MPFR value to a fixed-point hexadecimal string "X.Y..." with exactly `digits` hex digits.
+    std::string mpfr_to_fixed_hex(const mpfr_t v, std::size_t digits);
 } // namespace piracer
