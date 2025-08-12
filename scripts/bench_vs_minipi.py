@@ -103,7 +103,7 @@ def save_csv(results, output_file):
 
 def main():
     parser = argparse.ArgumentParser(description="PiRacer vs Mini-Pi benchmark comparison")
-    parser.add_argument("--minipi", default="minipi", help="Path to Mini-Pi executable")
+    parser.add_argument("--minipi", default="minipi/mini-pi", help="Path to Mini-Pi executable")
     parser.add_argument("--piracer", default="build/piracer", help="Path to PiRacer executable")
     parser.add_argument("--reps", type=int, default=3, help="Number of repetitions per test")
     parser.add_argument("--output", default="bench_comparison.csv", help="Output CSV file")

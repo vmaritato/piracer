@@ -12,20 +12,41 @@ The primary performance metric is **nanoseconds per digit**, which measures how 
 
 ### Current Performance
 
-| Digits | Time (s) | ns/digit | Notes |
-|--------|----------|----------|-------|
-| 1,000  | ~0.001   | ~1,000   | Baseline performance |
-| 10,000 | ~0.010   | ~1,000   | Consistent scaling |
-| 100,000| ~0.100   | ~1,000   | Linear scaling |
-| 1,000,000| ~1.000 | ~1,000   | Target performance |
+| Digits    | Time (s) | ns/digit | Notes                |
+| --------- | -------- | -------- | -------------------- |
+| 1,000     | ~0.001   | ~1,000   | Baseline performance |
+| 10,000    | ~0.010   | ~1,000   | Consistent scaling   |
+| 100,000   | ~0.100   | ~1,000   | Linear scaling       |
+| 1,000,000 | ~1.000   | ~1,000   | Target performance   |
 
-*Note: Performance varies by hardware. These are approximate values from modern x86_64/ARM64 systems.*
+_Note: Performance varies by hardware. These are approximate values from modern x86_64/ARM64 systems._
 
 ## Comparative Benchmarks
 
 ### vs Mini-Pi
 
-We maintain a comparative benchmark suite against [Mini-Pi](https://github.com/your-minipi-repo) to track relative performance.
+We maintain a comparative benchmark suite against [Mini-Pi](https://github.com/Mysticial/Mini-Pi) to track relative performance.
+
+**Mini-Pi Analysis:**
+
+- **Algorithm**: FFT-based multiplication + Newton's method + Binary splitting
+- **Complexity**: O(N \* Log(N)³) for π computation
+- **Performance**: "100x slower than y-cruncher" (baseline target)
+- **Optimizations**: SSE3, OpenMP, cached twiddles
+- **Goal**: Beat Mini-Pi with PiRacer's modern architecture
+
+#### Setup Mini-Pi
+
+First, clone and build Mini-Pi:
+
+```bash
+# Setup Mini-Pi automatically
+./scripts/setup_minipi.sh
+
+# Or manually:
+git clone https://github.com/Mysticial/Mini-Pi.git
+cd minipi && make
+```
 
 #### Running Comparative Benchmarks
 
@@ -43,6 +64,7 @@ We maintain a comparative benchmark suite against [Mini-Pi](https://github.com/y
 #### Output Format
 
 The script generates a CSV with:
+
 - `digits`: Number of digits computed
 - `piracer_median_s`: Median time for PiRacer (seconds)
 - `piracer_ns_per_digit`: PiRacer performance (ns/digit)
@@ -76,6 +98,7 @@ digits,piracer_median_s,piracer_ns_per_digit,minipi_median_s,speedup
 ### Performance Analysis
 
 The benchmark script provides:
+
 - **Median time**: Robust measure of performance
 - **ns/digit**: Normalized performance metric
 - **CSV output**: Easy to analyze and graph
@@ -106,6 +129,7 @@ The benchmark script provides:
 ### Visualization
 
 Future versions will include:
+
 - Performance graphs over time
 - Hardware comparison charts
 - Regression analysis tools
@@ -123,6 +147,7 @@ To add new benchmarks:
 ## Reproducibility
 
 All benchmarks are designed to be:
+
 - **Deterministic**: Same input produces same output
 - **Reproducible**: Consistent across runs
 - **Documented**: Clear methodology and parameters
@@ -130,4 +155,4 @@ All benchmarks are designed to be:
 
 ---
 
-*Last updated: $(date)* 
+_Last updated: 12/08/2025_
