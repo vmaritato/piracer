@@ -2,7 +2,9 @@
 #include "piracer/cli_utils.hpp"
 #include "piracer/version.hpp"
 #include "piracer/selftest.hpp"
+#include "piracer/progress.hpp"
 
+#include <iomanip> // setw, setprecision
 #include <chrono>
 #include <fstream>
 #include <iostream>
@@ -44,6 +46,7 @@ void print_help(const char* argv0) {
         << "                    Accepts forms like 1000000 or 1e6.\n"
         << "  -o, --out FILE    Write to FILE instead of stdout.\n"
         << "  -q, --quiet       Suppress non-result logs (stderr).\n"
+        << "  -p, --progress    Show a live progress bar with ETA during computation.\n"
         << "  -T, --self-test   Run a correctness self-test (defaults to 1000 digits;\n"
         << "                    respects --digits if provided) and exit.\n"
         << "  -V, --version     Show version and exit.\n"
@@ -62,7 +65,8 @@ int main(int argc, char** argv) {
         std::string out;
         bool quiet = false;
         bool do_selftest = false;
-
+        bool show_progress = false;
+        
         // Simple manual parsing (robust enough for baseline)
         for (int i = 1; i < argc; ++i) {
             std::string a = argv[i];
@@ -74,6 +78,8 @@ int main(int argc, char** argv) {
                 quiet = true;
             } else if (a == "--self-test" || a == "-T") {
                 do_selftest = true;
+            } else if (a == "--progress" || a == "-p") {
+                show_progress = true;
             } else if (a == "--version" || a == "-V") {
                 print_version();
                 return 0;
@@ -116,7 +122,39 @@ int main(int argc, char** argv) {
             std::cerr << "Request: " << digits << " decimal digits\n";
         }
 
-        std::string pi = piracer::compute_pi(digits);
+        // Optional progress bar: tick per series term
+        std::string pi;
+        if (show_progress && !quiet) {
+            struct Bar {
+                std::chrono::steady_clock::time_point start, last;
+                int width = 40;
+            } bar { std::chrono::steady_clock::now(), std::chrono::steady_clock::now(), 40 };
+
+            auto tick = [](std::size_t done, std::size_t total, void* u) {
+                auto* b = static_cast<Bar*>(u);
+                using namespace std::chrono;
+                auto now = steady_clock::now();
+                if (done < total && now - b->last < 50ms) return; // throttle to ~20 Hz
+                double frac = total ? (double)done / (double)total : 0.0;
+                double elapsed = duration_cast<duration<double>>(now - b->start).count();
+                double eta = (frac > 0.0) ? elapsed * (1.0 - frac) / frac : 0.0;
+                int filled = (int)std::lround(frac * b->width);
+                std::cerr << "\r[";
+                for (int i = 0; i < b->width; ++i) std::cerr << (i < filled ? "#" : ' ');
+                std::cerr << "] " << std::setw(3) << (int)std::round(frac * 100.0) << "%  "
+                                  << "elapsed " << std::fixed << std::setprecision(1) << elapsed << "s  "
+                                  << "eta " << std::fixed << std::setprecision(1) << eta << "s" << std::flush;
+                b->last = now;
+                if (done == total) std::cerr << "\n";
+            };
+
+            piracer::Progress prog;
+            prog.tick = tick;
+            prog.user = &bar;
+            pi = piracer::compute_pi_with_progress(digits, &prog);
+        } else {
+            pi = piracer::compute_pi(digits);
+        }
 
         // Output π either to stdout or file, keep logs on stderr.
         if (out.empty()) {
