@@ -1,11 +1,13 @@
 #pragma once
-#include <string>
 #include <cmath>
 #include <cstddef>
+#include <stdexcept>
+#include <string>
 
 namespace piracer {
-    // Parse integers like "1000000" and scientific-like strings "1e6".
-    inline std::size_t parse_integer(const std::string& s) {
+    // Parse integers like "1000000" and scientific-like strings "1e6" into size_t.
+    // Guarantees digits >= 1.
+    inline std::size_t parse_digits(const std::string& s) {
         if (s.find_first_of("eE") != std::string::npos) {
             long double v = std::stold(s);
             if (!(v > 0.0L)) throw std::invalid_argument("digits must be > 0");
