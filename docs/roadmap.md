@@ -23,12 +23,19 @@
 - ✅ **Performance metrics** and ETA calculations
 - ✅ **CI enhancements**: sanitizer jobs, perf smoke tests
 
-## v0.4 (now) - Compatibility & CI
+## v0.4 ✅ - Compatibility & CI
 
 - ✅ **CI Enhancements**: Sanitizer jobs, performance testing, security scanning
 - ✅ **Windows Build Parity**: Cross-platform dependency handling, vcpkg integration
 - ✅ **Docker Optimization**: Multi-stage builds, security hardening, dev environment
 - ✅ **Cross-Platform Testing**: Automated testing script, configuration validation
+
+## v0.5 (now) - Advanced SIMD & GPU
+
+- 🚧 **Advanced SIMD**: AVX-512, NEON ARM64, vectorization optimization
+- 🚧 **GPU Support**: CUDA/OpenCL backend for massive multiplications
+- 🚧 **Performance Profiling**: Detailed analysis tools and metrics
+- 🚧 **Benchmark Visualization**: Advanced graphs and performance analysis
 
 ## v1.0
 
