@@ -2,14 +2,14 @@
 
 <div align="center">
 
-![PiRacer Logo](https://img.shields.io/badge/PiRacer-v0.2.0-blue?style=for-the-badge&logo=pi)
+![PiRacer Logo](https://img.shields.io/badge/PiRacer-v0.4.0-blue?style=for-the-badge&logo=pi)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-blue?style=for-the-badge&logo=c%2B%2B)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue?style=for-the-badge)
 
 **Fast, reproducible π digits engine. Clean C++ architecture. Honest benchmarks.**
 
-**🏆 Baseline v0.2**: Chudnovsky + binary-splitting + **real threading** + **SIMD optimizations**
+**🏆 Baseline v0.4**: Chudnovsky + binary-splitting + **real threading** + **SIMD optimizations** + **cross-platform compatibility**
 
 **Competitive** - designed to beat [Mini-Pi](https://github.com/Mysticial/Mini-Pi) 🏁
 
@@ -220,19 +220,32 @@ This demonstrates **superior algorithmic scaling** and **architectural efficienc
 
 ## 🔮 **Roadmap & Future**
 
-### v0.2 (Current) ✅
+### v0.2 ✅
 
 - **Threading**: Real thread pool implementation
 - **SIMD**: AVX/SSE/NEON optimizations
 - **Memory**: Custom allocator system
 - **NTT**: Basic Number Theoretic Transform
 
-### v0.3 (Next) 🚧
+### v0.3 ✅
 
-- **Checkpointing**: Resume long computations
-- **Advanced SIMD**: Full vectorization
+- **Checkpointing**: JSON serialization with integrity validation
+- **Progress Events**: Structured logging with callbacks
+- **Performance Metrics**: Real-time monitoring and ETA
+
+### v0.4 (Current) ✅
+
+- **CI Enhancement**: Sanitizer jobs, security scanning, performance testing
+- **Windows Parity**: Cross-platform builds, vcpkg integration
+- **Docker Optimization**: Multi-stage builds, security hardening
+- **Cross-Platform Testing**: Automated validation scripts
+
+### v0.5 (Next) 🚧
+
+- **Advanced SIMD**: Full vectorization and optimization
 - **GPU Support**: CUDA/OpenCL backend
 - **Benchmarking**: Advanced metrics and graphs
+- **Performance Profiling**: Detailed analysis tools
 
 ### v1.0 (Target) 🎯
 
