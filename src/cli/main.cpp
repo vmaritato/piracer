@@ -49,6 +49,8 @@ void print_help(const char* argv0) {
         << "                    Default: dec\n"
         << "  -t, --threads N   Number of threads (no-op for now, future NTT support).\n"
         << "                    Default: 1\n"
+        << "  -c, --checkpoint FILE  Checkpoint file for resuming computation.\n"
+        << "                    Default: none\n"
         << "  -q, --quiet       Suppress non-result logs (stderr).\n"
         << "  -p, --progress    Show a live progress bar with ETA during computation.\n"
         << "  -T, --self-test   Run a correctness self-test (defaults to 1000 digits;\n"
@@ -68,6 +70,7 @@ int main(int argc, char** argv) {
     try {
         std::size_t digits = 0;
         std::string out;
+        std::string checkpoint_file;
         int base = 10;  // default to decimal
         int threads = 1;  // default to single thread
         bool quiet = false;
@@ -97,6 +100,8 @@ int main(int argc, char** argv) {
                     std::cerr << "Invalid thread count: " << threads << " (must be >= 1)\n";
                     return 1;
                 }
+            } else if ((a == "--checkpoint" || a == "-c") && i + 1 < argc) {
+                checkpoint_file = argv[++i];
             } else if (a == "--quiet" || a == "-q") {
                 quiet = true;
             } else if (a == "--self-test" || a == "-T") {
@@ -145,6 +150,9 @@ int main(int argc, char** argv) {
             std::cerr << "Request: " << digits << " " << (base == 16 ? "hexadecimal" : "decimal") << " digits\n";
             if (threads > 1) {
                 std::cerr << "Threads: " << threads << " (no-op for now, future NTT support)\n";
+            }
+            if (!checkpoint_file.empty()) {
+                std::cerr << "Checkpoint: " << checkpoint_file << " (not yet wired)\n";
             }
         }
 

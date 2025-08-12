@@ -36,6 +36,7 @@ add_library(piracer-core STATIC
   src/core/format.cpp
   src/core/selftest.cpp
   src/core/bigmul.cpp
+  src/core/checkpoint.cpp
 )
 
 target_include_directories(piracer-core
