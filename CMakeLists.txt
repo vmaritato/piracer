@@ -34,6 +34,7 @@ add_library(piracer-core STATIC
   src/alg/pi/bsplit.cpp
   src/alg/pi/chudnovsky.cpp
   src/core/format.cpp
+  src/core/selftest.cpp
 )
 
 target_include_directories(piracer-core
