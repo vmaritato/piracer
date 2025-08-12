@@ -14,6 +14,12 @@ git clone https://github.com/vmaritato/piracer && cd piracer
 cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 ./build/piracer --digits 100000 --out pi.txt
+
+# Output in hexadecimal
+./build/piracer --digits 1000 --base hex
+
+# With progress bar
+./build/piracer --digits 1000000 --progress
 ```
 
 ### Build with vcpkg (optional)
