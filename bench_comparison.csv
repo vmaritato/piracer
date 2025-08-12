@@ -1,0 +1,3 @@
+digits,piracer_median_s,piracer_ns_per_digit,minipi_median_s,speedup
+1000,0.003261,126.083,0.004494,1.38
+10000,0.003948,79.267,0.028796,7.29

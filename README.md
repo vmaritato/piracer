@@ -6,7 +6,7 @@ Fast, reproducible π digits engine. Clean C++ architecture. Honest benchmarks.
 
 ## Quickstart
 
-```bash
+````bash
 # macOS: brew install gmp mpfr cmake ninja
 # Ubuntu: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev cmake ninja-build
 
@@ -20,7 +20,10 @@ cmake --build build -j
 
 # With progress bar
 ./build/piracer --digits 1000000 --progress
-```
+
+# Benchmark vs Mini-Pi
+./scripts/setup_minipi.sh  # Setup competitor
+./scripts/bench_vs_minipi.py 1000 10000 100000  # Run comparison
 
 ### Build with vcpkg (optional)
 
@@ -29,7 +32,7 @@ git clone https://github.com/microsoft/vcpkg
 ./vcpkg/bootstrap-vcpkg.sh
 cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
-```
+````
 
 ## Roadmap
 
@@ -40,6 +43,7 @@ cmake --build build -j
 - **Speed that scales** with engineering (not just math tricks)
 - **Reproducible** benches (CSV + CI)
 - **Readable** architecture (clean modules)
+- **Competitive** - designed to beat [Mini-Pi](https://github.com/Mysticial/Mini-Pi) 🏁
 
 ## License
 

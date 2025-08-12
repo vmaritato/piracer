@@ -23,7 +23,17 @@ fi
 # Build Mini-Pi
 echo "Building Mini-Pi..."
 make clean || true
-make
+
+# Try different build approaches for different platforms
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "macOS detected, trying without OpenMP..."
+    # macOS doesn't support -fopenmp by default
+    g++ -Wall -Wextra -O3 -g -march=native -std=c++17 -o mini-pi mini-pi.cpp || \
+    clang++ -Wall -Wextra -O3 -g -march=native -std=c++17 -o mini-pi mini-pi.cpp
+else
+    # Linux with OpenMP
+    make
+fi
 
 # Check if build was successful
 if [ -f "mini-pi" ]; then
@@ -41,8 +51,8 @@ fi
 
 # Test Mini-Pi with a small computation
 echo ""
-echo "Testing Mini-Pi with 100 digits..."
-./mini-pi 100 > /dev/null
+echo "Testing Mini-Pi with 1000 digits..."
+./mini-pi 1000 > /dev/null
 if [ $? -eq 0 ]; then
     echo "✅ Mini-Pi test successful!"
 else
