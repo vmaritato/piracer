@@ -18,8 +18,9 @@
 ## v0.3 (DX) - Developer Experience
 
 - ✅ **Bench harness** (CSV; ns/digit; comparative vs Mini-Pi)
-- ✅ **Checkpoint/resume** skeleton (ready for wiring)
-- 🔄 **Progress events** and structured logging
+- ✅ **Checkpoint/resume** with JSON serialization and integrity validation
+- ✅ **Progress events** and structured logging with callbacks
+- ✅ **Performance metrics** and ETA calculations
 - 🔄 **CI enhancements**: sanitizer jobs, perf smoke tests
 
 ## v0.4 (compatibility)
