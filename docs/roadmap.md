@@ -23,10 +23,12 @@
 - ✅ **Performance metrics** and ETA calculations
 - 🔄 **CI enhancements**: sanitizer jobs, perf smoke tests
 
-## v0.4 (compatibility)
+## v0.4 (now) - Compatibility & CI
 
-- vcpkg manifest; Windows build parity
-- Docker image for reproducible builds
+- ✅ **CI Enhancements**: Sanitizer jobs, performance testing, security scanning
+- ✅ **Windows Build Parity**: Cross-platform dependency handling, vcpkg integration
+- ✅ **Docker Optimization**: Multi-stage builds, security hardening, dev environment
+- ✅ **Cross-Platform Testing**: Automated testing script, configuration validation
 
 ## v1.0
 
