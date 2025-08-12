@@ -17,6 +17,7 @@ cmake --build build -j
 ```
 
 ### Build with vcpkg (optional)
+
 ```bash
 git clone https://github.com/microsoft/vcpkg
 ./vcpkg/bootstrap-vcpkg.sh

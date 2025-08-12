@@ -8,7 +8,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 WORKDIR /app
 COPY . .
 RUN cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
- && cmake --build build -j \
- && ctest --test-dir build --output-on-failure
+    && cmake --build build -j \
+    && ctest --test-dir build --output-on-failure
 
 CMD ["./build/piracer", "--digits", "100000", "--out", "/dev/stdout"] 
