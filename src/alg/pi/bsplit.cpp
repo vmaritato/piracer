@@ -1,4 +1,5 @@
 #include "piracer/bsplit.hpp"
+#include "piracer/thread_pool.hpp"
 
 namespace piracer {
     namespace {
@@ -62,7 +63,13 @@ namespace piracer {
     
     // Parallel scheduler implementation
     ParallelScheduler::ParallelScheduler(int threads, long chunk)
-        : num_threads(threads), chunk_size(chunk), current_pos(0), end_pos(0) {}
+        : num_threads(threads), chunk_size(chunk), current_pos(0), end_pos(0) {
+        if (threads > 1) {
+            thread_pool = std::make_unique<ThreadPool>(threads);
+        }
+    }
+    
+    ParallelScheduler::~ParallelScheduler() = default;
     
     std::pair<long, long> ParallelScheduler::get_next_chunk() {
         if (current_pos >= end_pos) {
@@ -78,6 +85,10 @@ namespace piracer {
     
     bool ParallelScheduler::has_more_chunks() const {
         return current_pos < end_pos;
+    }
+    
+    ThreadPool* ParallelScheduler::get_thread_pool() const {
+        return thread_pool.get();
     }
     
     // Parallel binary-splitting implementation

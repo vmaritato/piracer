@@ -16,21 +16,26 @@ namespace piracer {
     // Same as above but reports progress at each leaf (terms).
     BSplitTriplet bsplit_chudnovsky(long a, long b, Progress* prog);
     
-    // Parallel binary-splitting with simple scheduler
+    // Parallel binary-splitting with real thread pool
     BSplitTriplet bsplit_chudnovsky_parallel(long a, long b, int num_threads, Progress* prog = nullptr);
     
-    // Simple task scheduler for parallel bsplit
+    // Advanced parallel scheduler with thread pool
     struct ParallelScheduler {
         int num_threads;
         long chunk_size;
+        std::unique_ptr<class ThreadPool> thread_pool;
         
         ParallelScheduler(int threads, long chunk = 1000);
+        ~ParallelScheduler();
         
         // Get next chunk to process
         std::pair<long, long> get_next_chunk();
         
         // Check if there are more chunks
         bool has_more_chunks() const;
+        
+        // Get thread pool
+        class ThreadPool* get_thread_pool() const;
         
     private:
         long current_pos;
