@@ -16,6 +16,14 @@ cmake --build build -j
 ./build/piracer --digits 100000 --out pi.txt
 ```
 
+### Build with vcpkg (optional)
+```bash
+git clone https://github.com/microsoft/vcpkg
+./vcpkg/bootstrap-vcpkg.sh
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+```
+
 ## Roadmap
 
 -

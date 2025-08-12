@@ -1,0 +1,9 @@
+{
+  "name": "piracer",
+  "version-string": "0.1.0",
+  "builtin-baseline": "6a2b5ac", 
+  "dependencies": [
+    { "name": "gmp" },
+    { "name": "mpfr" }
+  ]
+} 
