@@ -1,5 +1,6 @@
 #pragma once
 #include <gmpxx.h>
+#include "piracer/progress.hpp"
 
 namespace piracer {
     // Minimal tuple used by binary-splitting.
@@ -10,6 +11,8 @@ namespace piracer {
     };
 
     // Binary-splitting specialized for the Chudnovsky series on [a, b).
-    // This isolates the math rules so the caller (compute_pi) stays simple.
     BSplitTriplet bsplit_chudnovsky(long a, long b);
+
+    // Same as above but reports progress at each leaf (terms).
+    BSplitTriplet bsplit_chudnovsky(long a, long b, Progress* prog);
 } // namespace piracer
