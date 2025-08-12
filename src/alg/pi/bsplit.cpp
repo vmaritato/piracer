@@ -59,4 +59,53 @@ namespace piracer {
     BSplitTriplet bsplit_chudnovsky(long a, long b, Progress* prog) {
         return bsplit_impl(a, b, prog);
     }
+    
+    // Parallel scheduler implementation
+    ParallelScheduler::ParallelScheduler(int threads, long chunk)
+        : num_threads(threads), chunk_size(chunk), current_pos(0), end_pos(0) {}
+    
+    std::pair<long, long> ParallelScheduler::get_next_chunk() {
+        if (current_pos >= end_pos) {
+            return {-1, -1};  // No more chunks
+        }
+        
+        long start = current_pos;
+        long end = std::min(current_pos + chunk_size, end_pos);
+        current_pos = end;
+        
+        return {start, end};
+    }
+    
+    bool ParallelScheduler::has_more_chunks() const {
+        return current_pos < end_pos;
+    }
+    
+    // Parallel binary-splitting implementation
+    BSplitTriplet bsplit_chudnovsky_parallel(long a, long b, int num_threads, Progress* prog) {
+        // For now, this is a stub that falls back to sequential
+        // TODO: Implement actual parallel processing with thread pool
+        
+        if (num_threads <= 1) {
+            return bsplit_chudnovsky(a, b, prog);
+        }
+        
+        // Simple chunk-based approach (not yet parallel)
+        const long chunk_size = std::max(1L, (b - a) / num_threads);
+        ParallelScheduler scheduler(num_threads, chunk_size);
+        
+        // For now, just process sequentially but with chunking
+        BSplitTriplet result{mpz_class{1}, mpz_class{1}, mpz_class{0}};
+        
+        for (long chunk_start = a; chunk_start < b; chunk_start += chunk_size) {
+            long chunk_end = std::min(chunk_start + chunk_size, b);
+            BSplitTriplet chunk = bsplit_chudnovsky(chunk_start, chunk_end, prog);
+            
+            // Combine results
+            result.P *= chunk.P;
+            result.Q *= chunk.Q;
+            result.T = result.T * chunk.Q + result.P * chunk.T;
+        }
+        
+        return result;
+    }
 } // namespace piracer

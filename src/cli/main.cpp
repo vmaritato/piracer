@@ -177,9 +177,20 @@ int main(int argc, char** argv) {
             piracer::Progress prog;
             prog.tick = tick;
             prog.user = &bar;
-            pi = piracer::compute_pi_base_with_progress(digits, base, &prog);
+            
+            // Use threaded version when multiple threads requested
+            if (threads > 1) {
+                pi = piracer::compute_pi_base_threaded_with_progress(digits, base, threads, &prog);
+            } else {
+                pi = piracer::compute_pi_base_with_progress(digits, base, &prog);
+            }
         } else {
-            pi = piracer::compute_pi_base(digits, base);
+            // Use threaded version when multiple threads requested
+            if (threads > 1) {
+                pi = piracer::compute_pi_base_threaded(digits, base, threads);
+            } else {
+                pi = piracer::compute_pi_base(digits, base);
+            }
         }
 
         // Output π either to stdout or file, keep logs on stderr.

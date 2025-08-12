@@ -15,4 +15,10 @@ namespace piracer {
 
     // Same as above but reports progress via `prog` (ticks per term).
     std::string compute_pi_base_with_progress(std::size_t digits, int base, Progress* prog);
+    
+    // Compute π to `digits` in specified base with thread count. No progress reporting.
+    std::string compute_pi_base_threaded(std::size_t digits, int base, int num_threads);
+
+    // Same as above but reports progress via `prog` (ticks per term).
+    std::string compute_pi_base_threaded_with_progress(std::size_t digits, int base, int num_threads, Progress* prog);
 } // namespace piracer
