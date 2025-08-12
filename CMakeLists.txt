@@ -54,3 +54,7 @@ add_executable(piracer
 target_link_libraries(piracer PRIVATE piracer-core)
 
 install(TARGETS piracer RUNTIME DESTINATION bin)
+
+# ---- Testing ----------------------------------------------------------------
+enable_testing()
+add_test(NAME selftest-1k COMMAND $<TARGET_FILE:piracer> --self-test --digits 1000)
