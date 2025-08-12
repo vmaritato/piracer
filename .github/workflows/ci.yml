@@ -18,6 +18,8 @@ jobs:
         run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.cfg }}
       - name: Build
         run: cmake --build build -j
+      - name: Test (ctest)
+        run: ctest --test-dir build --output-on-failure
       - name: Smoke test
         run: ./build/piracer --digits 1000 --out pi.txt && test -s pi.txt
       - name: Upload artifact
