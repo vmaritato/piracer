@@ -37,14 +37,18 @@ void print_help(const char* argv0) {
     print_banner();
     std::cerr
         << "\nUSAGE\n"
-        << "  " << me << " --digits N [--out FILE] [--quiet]\n"
-        << "  " << me << " -n N        [-o FILE] [-q]\n"
+        << "  " << me << " --digits N [--out FILE] [--base {dec,hex}] [--threads N] [--quiet]\n"
+        << "  " << me << " -n N        [-o FILE] [-b {dec,hex}] [-t N] [-q]\n"
         << "  " << me << " --self-test [--digits N]\n"
         << "  " << me << " -T          [-n N]\n"
         << "\nOPTIONS\n"
         << "  -n, --digits N    Number of decimal digits to compute.\n"
         << "                    Accepts forms like 1000000 or 1e6.\n"
         << "  -o, --out FILE    Write to FILE instead of stdout.\n"
+        << "  -b, --base BASE   Output base: dec (decimal) or hex (hexadecimal).\n"
+        << "                    Default: dec\n"
+        << "  -t, --threads N   Number of threads (no-op for now, future NTT support).\n"
+        << "                    Default: 1\n"
         << "  -q, --quiet       Suppress non-result logs (stderr).\n"
         << "  -p, --progress    Show a live progress bar with ETA during computation.\n"
         << "  -T, --self-test   Run a correctness self-test (defaults to 1000 digits;\n"
@@ -54,6 +58,7 @@ void print_help(const char* argv0) {
         << "\nEXAMPLES\n"
         << "  " << me << " --digits 100000 > pi.txt\n"
         << "  " << me << " -n 1e6 -o pi_1M.txt\n"
+        << "  " << me << " --base hex -n 1000    # output in hexadecimal\n"
         << "  " << me << " --self-test          # defaults to 1000 digits\n"
         << "  " << me << " --self-test -n 2500  # test at 2500 digits\n";
 }
@@ -63,6 +68,8 @@ int main(int argc, char** argv) {
     try {
         std::size_t digits = 0;
         std::string out;
+        int base = 10;  // default to decimal
+        int threads = 1;  // default to single thread
         bool quiet = false;
         bool do_selftest = false;
         bool show_progress = false;
@@ -74,6 +81,22 @@ int main(int argc, char** argv) {
                 digits = piracer::parse_digits(argv[++i]);
             } else if ((a == "--out" || a == "-o") && i + 1 < argc) {
                 out = argv[++i];
+            } else if ((a == "--base" || a == "-b") && i + 1 < argc) {
+                std::string b = argv[++i];
+                if (b == "dec" || b == "decimal") {
+                    base = 10;
+                } else if (b == "hex" || b == "hexadecimal") {
+                    base = 16;
+                } else {
+                    std::cerr << "Invalid base: " << b << " (use 'dec' or 'hex')\n";
+                    return 1;
+                }
+            } else if ((a == "--threads" || a == "-t") && i + 1 < argc) {
+                threads = std::stoi(argv[++i]);
+                if (threads < 1) {
+                    std::cerr << "Invalid thread count: " << threads << " (must be >= 1)\n";
+                    return 1;
+                }
             } else if (a == "--quiet" || a == "-q") {
                 quiet = true;
             } else if (a == "--self-test" || a == "-T") {
@@ -119,7 +142,10 @@ int main(int argc, char** argv) {
 
         if (!quiet) {
             print_banner();
-            std::cerr << "Request: " << digits << " decimal digits\n";
+            std::cerr << "Request: " << digits << " " << (base == 16 ? "hexadecimal" : "decimal") << " digits\n";
+            if (threads > 1) {
+                std::cerr << "Threads: " << threads << " (no-op for now, future NTT support)\n";
+            }
         }
 
         // Optional progress bar: tick per series term
@@ -151,9 +177,9 @@ int main(int argc, char** argv) {
             piracer::Progress prog;
             prog.tick = tick;
             prog.user = &bar;
-            pi = piracer::compute_pi_with_progress(digits, &prog);
+            pi = piracer::compute_pi_base_with_progress(digits, base, &prog);
         } else {
-            pi = piracer::compute_pi(digits);
+            pi = piracer::compute_pi_base(digits, base);
         }
 
         // Output π either to stdout or file, keep logs on stderr.
@@ -171,8 +197,12 @@ int main(int argc, char** argv) {
 
         if (!quiet) {
             if (!out.empty())
-                std::cerr << "Wrote " << digits << " digits to '" << out << "'\n";
+                std::cerr << "Wrote " << digits << " " << (base == 16 ? "hex" : "decimal") << " digits to '" << out << "'\n";
             std::cerr << "Elapsed: " << dt.count() << " s\n";
+            
+            // Calculate and log ns/digit metric
+            double ns_per_digit = (dt.count() * 1e9) / digits;
+            std::cerr << "Performance: " << std::fixed << std::setprecision(3) << ns_per_digit << " ns/digit\n";
         }
 
         return 0;
