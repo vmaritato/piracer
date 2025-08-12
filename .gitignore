@@ -39,3 +39,32 @@
 
 # debug information files
 *.dwo
+
+# Build directories
+build/
+build-*/
+out/
+cmake-build-*/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Benchmark results
+*.csv
+bench_comparison.csv
+
+# Temporary files
+*.tmp
+*.log
+
+# Dependencies
+minipi/
+vcpkg_installed/
