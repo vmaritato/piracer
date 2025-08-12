@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Advanced benchmark visualization script for PiRacer v0.5
+Advanced benchmark visualization script for PiRacer v1.0.0
 Creates interactive charts and performance analysis
 """
 
@@ -376,7 +376,7 @@ class BenchmarkVisualizer:
         print(f"✅ All visualizations completed in {output_dir}/")
 
 def main():
-    parser = argparse.ArgumentParser(description="PiRacer Benchmark Visualizer v0.5")
+    parser = argparse.ArgumentParser(description="PiRacer Benchmark Visualizer v1.0.0")
     parser.add_argument("data_file", help="Benchmark data file (CSV or JSON)")
     parser.add_argument("--output-dir", default="benchmark_charts", 
                        help="Output directory for charts (default: benchmark_charts)")

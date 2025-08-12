@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![PiRacer Logo](https://img.shields.io/badge/PiRacer-v0.5.0-blue?style=for-the-badge&logo=pi)
+![PiRacer Logo](https://img.shields.io/badge/PiRacer-v1.0.0-blue?style=for-the-badge&logo=pi)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-blue?style=for-the-badge&logo=c%2B%2B)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue?style=for-the-badge)
