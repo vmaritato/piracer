@@ -6,24 +6,120 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        cfg: [Release]
+        cfg: [Release, Debug]
+        sanitizer: [none, asan, ubsan]
+        exclude:
+          # Exclude Debug + sanitizer combinations for now
+          - cfg: Debug
+            sanitizer: asan
+          - cfg: Debug
+            sanitizer: ubsan
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+
       - name: Install deps (Linux/macOS)
         run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev cmake ninja-build; fi
-          if [[ "$RUNNER_OS" == "macOS" ]]; then brew update && brew install gmp mpfr cmake ninja; fi
+          if [[ "$RUNNER_OS" == "Linux" ]]; then 
+            sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev cmake ninja-build valgrind
+          fi
+          if [[ "$RUNNER_OS" == "macOS" ]]; then 
+            brew update && brew install gmp mpfr cmake ninja
+          fi
+
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.cfg }}
+        run: |
+          cmake_flags="-S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.cfg }}"
+          if [[ "${{ matrix.sanitizer }}" != "none" ]]; then
+            if [[ "${{ matrix.sanitizer }}" == "asan" ]]; then
+              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS='-fsanitize=address -fno-omit-frame-pointer'"
+              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS='-fsanitize=address'"
+            elif [[ "${{ matrix.sanitizer }}" == "ubsan" ]]; then
+              cmake_flags="$cmake_flags -DCMAKE_CXX_FLAGS='-fsanitize=undefined -fno-omit-frame-pointer'"
+              cmake_flags="$cmake_flags -DCMAKE_EXE_LINKER_FLAGS='-fsanitize=undefined'"
+            fi
+          fi
+          echo "Running: cmake $cmake_flags"
+          cmake $cmake_flags
+
       - name: Build
         run: cmake --build build -j
+
       - name: Test (ctest)
         run: ctest --test-dir build --output-on-failure
+
       - name: Smoke test
         run: ./build/piracer --digits 1000 --out pi.txt && test -s pi.txt
+
+      - name: Performance smoke test
+        run: |
+          echo "Running performance smoke test..."
+          ./build/piracer --digits 10000 --base dec > /dev/null
+          echo "Performance test passed"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: piracer-${{ matrix.os }}
+          name: piracer-${{ matrix.os }}-${{ matrix.cfg }}-${{ matrix.sanitizer }}
           path: build/piracer
+
+  benchmark:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: piracer-ubuntu-latest-Release-none
+          path: build/
+
+      - name: Install Python deps
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install matplotlib pandas
+
+      - name: Run benchmarks
+        run: |
+          chmod +x build/piracer
+          python3 scripts/bench.py 1000 10000 100000 > benchmark_results.csv
+          echo "Benchmark results:"
+          cat benchmark_results.csv
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: benchmark_results.csv
+
+  security:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install security tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bandit safety
+          python3 -m pip install bandit safety
+
+      - name: Security scan
+        run: |
+          echo "Running security scan..."
+          # Python security scan
+          if [ -f "requirements.txt" ]; then
+            safety check -r requirements.txt
+          fi
+          echo "Security scan completed"
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: "Dependency Review"
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
