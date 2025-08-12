@@ -140,7 +140,7 @@ int main(int argc, char** argv) {
                 double eta = (frac > 0.0) ? elapsed * (1.0 - frac) / frac : 0.0;
                 int filled = (int)std::lround(frac * b->width);
                 std::cerr << "\r[";
-                for (int i = 0; i < b->width; ++i) std::cerr << (i < filled ? "#" : ' ');
+                for (int i = 0; i < b->width; ++i) std::cerr << (i < filled ? "█" : " ");
                 std::cerr << "] " << std::setw(3) << (int)std::round(frac * 100.0) << "%  "
                                   << "elapsed " << std::fixed << std::setprecision(1) << elapsed << "s  "
                                   << "eta " << std::fixed << std::setprecision(1) << eta << "s" << std::flush;
