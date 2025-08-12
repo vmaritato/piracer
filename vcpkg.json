@@ -1,6 +1,19 @@
 {
   "name": "piracer",
-  "version-string": "0.2.0",
-  "builtin-baseline": "6a2b5ac",
-  "dependencies": [{ "name": "gmp" }, { "name": "mpfr" }]
+  "version-string": "0.4.0",
+  "builtin-baseline": "2024-01-16",
+  "dependencies": [
+    { "name": "gmp", "version>=": "6.2.1" },
+    { "name": "mpfr", "version>=": "4.1.1" }
+  ],
+  "overrides": [
+    {
+      "name": "gmp",
+      "version": "6.3.0"
+    },
+    {
+      "name": "mpfr", 
+      "version": "4.2.1"
+    }
+  ]
 }
