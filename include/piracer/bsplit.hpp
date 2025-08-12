@@ -1,5 +1,6 @@
 #pragma once
 #include <gmpxx.h>
+#include <memory>
 #include "piracer/progress.hpp"
 
 namespace piracer {
