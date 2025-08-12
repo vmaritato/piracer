@@ -119,7 +119,7 @@ def main():
     if not Path(args.minipi).exists():
         print(f"Error: Mini-Pi not found at {args.minipi}")
         print("Note: This script expects Mini-Pi to be available. Clone it first:")
-        print("  git clone https://github.com/your-minipi-repo")
+        print("  git clone https://github.com/Mysticial/Mini-Pi.git")
         print("  cd minipi && make")
         return 1
     

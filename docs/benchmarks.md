@@ -139,6 +139,7 @@ The benchmark script provides:
 ### Performance Impact
 
 These optimizations have dramatically improved PiRacer's performance:
+
 - **Threading**: Ready for multi-core utilization
 - **SIMD**: Vectorized arithmetic operations
 - **Memory**: Reduced allocation overhead
