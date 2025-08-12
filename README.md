@@ -90,7 +90,7 @@ brew install gmp mpfr cmake ninja pkg-config
 
 ```bash
 # Clone and build
-git clone https://github.com/your-username/piracer.git
+git clone https://github.com/vmaritato/piracer.git
 cd piracer
 
 # Build with native dependencies
@@ -132,14 +132,16 @@ cmake --build build -j
 ### ⚡ **Performance Features**
 
 - **Real Threading**: Thread pool for parallel computation
-- **SIMD Ready**: AVX/SSE/NEON optimizations
+- **Advanced SIMD**: AVX-512, NEON ARM64, vectorization optimization
 - **Memory Pool**: Custom allocator for efficiency
 - **NTT Backend**: Number Theoretic Transform implementation
+- **GPU Support**: CUDA/OpenCL backend for massive multiplications
 
 ### 🔬 **Scientific Rigor**
 
 - **Self-Testing**: Validates against MPFR constants
-- **Benchmark Suite**: Comprehensive performance testing
+- **Benchmark Suite**: Comprehensive performance testing with visualization
+- **Performance Profiling**: Cache analysis, branch prediction, detailed metrics
 - **Comparative Analysis**: Head-to-head vs competitors
 - **Reproducible**: Deterministic results across platforms
 
@@ -240,12 +242,12 @@ This demonstrates **superior algorithmic scaling** and **architectural efficienc
 - **Docker Optimization**: Multi-stage builds, security hardening
 - **Cross-Platform Testing**: Automated validation scripts
 
-### v0.5 (Next) 🚧
+### v0.5 (Current) 🚧
 
-- **Advanced SIMD**: Full vectorization and optimization
-- **GPU Support**: CUDA/OpenCL backend
-- **Benchmarking**: Advanced metrics and graphs
-- **Performance Profiling**: Detailed analysis tools
+- **Advanced SIMD**: AVX-512, NEON ARM64, vectorization optimization
+- **GPU Support**: CUDA/OpenCL backend for massive multiplications
+- **Performance Profiling**: Cache analysis, branch prediction, detailed metrics
+- **Benchmark Visualization**: Interactive charts, performance reports, dashboards
 
 ### v1.0 (Target) 🎯
 
@@ -270,7 +272,7 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ```bash
 # Clone and setup
-git clone https://github.com/your-username/piracer.git
+git clone https://github.com/vmaritato/piracer.git
 cd piracer
 
 # Build with tests
