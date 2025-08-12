@@ -30,15 +30,18 @@
 - ✅ **Docker Optimization**: Multi-stage builds, security hardening, dev environment
 - ✅ **Cross-Platform Testing**: Automated testing script, configuration validation
 
-## v0.5 (now) - Advanced SIMD & GPU
+## v0.5 ✅ - Advanced SIMD & GPU
 
-- 🚧 **Advanced SIMD**: AVX-512, NEON ARM64, vectorization optimization
-- 🚧 **GPU Support**: CUDA/OpenCL backend for massive multiplications
-- 🚧 **Performance Profiling**: Detailed analysis tools and metrics
-- 🚧 **Benchmark Visualization**: Advanced graphs and performance analysis
+- ✅ **Advanced SIMD**: AVX-512, NEON ARM64, vectorization optimization
+- ✅ **GPU Support**: CUDA/OpenCL backend for massive multiplications
+- ✅ **Performance Profiling**: Detailed analysis tools and metrics
+- ✅ **Benchmark Visualization**: Advanced graphs and performance analysis
 
-## v1.0
+## v1.0 (next) - Production & Competition
 
-- Benchmarks on 2–3 machines (ARM64 + x86_64)
+- 🚧 **y-cruncher Competition**: Match or beat the best π computation engines
+- 🚧 **Multi-Platform**: ARM64, x86_64, RISC-V support
+- 🚧 **Production Ready**: Enterprise features and stability
+- 🚧 **Community Ecosystem**: Active contributor base and extensions
 - Docs: algorithms & architecture diagrams
 - Release binaries + checksums
