@@ -24,7 +24,7 @@ PiRacer is a high-performance π computation engine designed to beat the competi
 
 ```bash
 # Clone and build
-git clone https://github.com/your-username/piracer.git
+git clone https://github.com/vmaritato/piracer.git
 cd piracer
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
@@ -42,9 +42,9 @@ ctest --test-dir build --output-on-failure
 
 ```bash
 # Fork on GitHub, then clone your fork
-git clone https://github.com/your-username/piracer.git
+git clone https://github.com/vmaritato/piracer.git
 cd piracer
-git remote add upstream https://github.com/original-username/piracer.git
+git remote add upstream https://github.com/vmaritato/piracer.git
 ```
 
 ### 2. Create Feature Branch
