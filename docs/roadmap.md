@@ -21,7 +21,7 @@
 - ✅ **Checkpoint/resume** with JSON serialization and integrity validation
 - ✅ **Progress events** and structured logging with callbacks
 - ✅ **Performance metrics** and ETA calculations
-- 🔄 **CI enhancements**: sanitizer jobs, perf smoke tests
+- ✅ **CI enhancements**: sanitizer jobs, perf smoke tests
 
 ## v0.4 (now) - Compatibility & CI
 
