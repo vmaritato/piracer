@@ -11,13 +11,13 @@
 
 **🏆 Baseline v0.2**: Chudnovsky + binary-splitting + **real threading** + **SIMD optimizations**
 
-- **Competitive** - designed to beat [Mini-Pi](https://github.com/Mysticial/Mini-Pi) 🏁
-- **Scalable** - performance gap increases with digit count
-- **Modern** - C++17, CMake, cross-platform
+**Competitive** - designed to beat [Mini-Pi](https://github.com/Mysticial/Mini-Pi) 🏁
+
+**Scalable** - performance gap increases with digit count
+
+**Modern** - C++17, CMake, cross-platform
 
 </div>
-
----
 
 ## 🚀 **Performance That Speaks for Itself**
 
@@ -53,8 +53,6 @@
 </table>
 
 **PiRacer doesn't just beat Mini-Pi — it absolutely destroys it!** 🎯
-
----
 
 ## ⚡ Quickstart
 
@@ -122,8 +120,6 @@ cmake --build build -j
 ./scripts/bench_vs_minipi.py 1000 10000 100000  # Run comparison
 ```
 
----
-
 ## 🎯 **What Makes PiRacer Special**
 
 ### 🧠 **Smart Architecture**
@@ -146,8 +142,6 @@ cmake --build build -j
 - **Benchmark Suite**: Comprehensive performance testing
 - **Comparative Analysis**: Head-to-head vs competitors
 - **Reproducible**: Deterministic results across platforms
-
----
 
 ## 🚀 **Advanced Usage**
 
@@ -183,8 +177,6 @@ cmake --build build -j
 valgrind --tool=massif ./build/piracer --digits 100000
 ```
 
----
-
 ## 🏗️ **Architecture Overview**
 
 ```
@@ -206,8 +198,6 @@ valgrind --tool=massif ./build/piracer --digits 100000
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
----
-
 ## 📊 **Performance Analysis**
 
 ### Scaling Characteristics
@@ -227,8 +217,6 @@ This demonstrates **superior algorithmic scaling** and **architectural efficienc
 3. **SIMD Ready**: Vectorized operations
 4. **Clean Architecture**: Minimal overhead
 5. **Smart Scheduling**: Intelligent task distribution
-
----
 
 ## 🔮 **Roadmap & Future**
 
@@ -252,8 +240,6 @@ This demonstrates **superior algorithmic scaling** and **architectural efficienc
 - **Multi-Platform**: ARM64, x86_64, RISC-V
 - **Production Ready**: Enterprise features
 - **Community**: Active contributor ecosystem
-
----
 
 ## 🤝 **Contributing**
 
@@ -283,8 +269,6 @@ ctest --test-dir build --output-on-failure
 ./scripts/bench.py 1000 10000
 ```
 
----
-
 ## 📚 **Documentation**
 
 - **[Architecture](docs/architecture.md)**: System design and modules
@@ -292,8 +276,6 @@ ctest --test-dir build --output-on-failure
 - **[Benchmarks](docs/benchmarks.md)**: Performance data and analysis
 - **[Contributing](CONTRIBUTING.md)**: How to contribute
 - **[Code of Conduct](CODE_OF_CONDUCT.md)**: Community guidelines
-
----
 
 ## 🏆 **Competition Status**
 
@@ -305,13 +287,9 @@ ctest --test-dir build --output-on-failure
 
 **PiRacer is actively seeking new competitors to dominate!** 💪
 
----
-
 ## 📄 **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🙏 **Acknowledgments**
 
@@ -319,8 +297,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Mini-Pi**: For being a worthy competitor to beat
 - **C++ Community**: For modern language features
 - **Open Source**: For the collaborative spirit
-
----
 
 <div align="center">
 
