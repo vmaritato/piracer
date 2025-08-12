@@ -9,8 +9,8 @@ option(PIRACER_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
 option(PIRACER_ENABLE_LTO "Enable Link-Time Optimization" OFF)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GMP  REQUIRED IMPORTED_TARGET gmp)
-pkg_check_modules(MPFR REQUIRED IMPORTED_TARGET mpfr)
+pkg_check_modules(GMP  REQUIRED IMPORTED_TARGET "gmp>=6.2")
+pkg_check_modules(MPFR REQUIRED IMPORTED_TARGET "mpfr>=4.1")
 
 if (MSVC)
   add_compile_options(/W4)
