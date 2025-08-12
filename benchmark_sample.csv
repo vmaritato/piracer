@@ -1,0 +1,10 @@
+digits,ns_per_digit,algorithm,memory_mb,competitor,speedup,timestamp
+1000,110.5,chudnovsky,15.2,minipi,1.84,2025-01-15T10:00:00Z
+10000,76.3,chudnovsky,45.8,minipi,9.30,2025-01-15T10:01:00Z
+100000,126.1,chudnovsky,156.7,minipi,26.91,2025-01-15T10:02:00Z
+1000,125.2,bsplit,18.1,minipi,1.62,2025-01-15T10:03:00Z
+10000,89.7,bsplit,52.3,minipi,7.85,2025-01-15T10:04:00Z
+100000,145.8,bsplit,178.9,minipi,23.45,2025-01-15T10:05:00Z
+1000,98.3,chudnovsky_parallel,16.8,minipi,2.05,2025-01-15T10:06:00Z
+10000,68.9,chudnovsky_parallel,42.1,minipi,10.12,2025-01-15T10:07:00Z
+100000,112.4,chudnovsky_parallel,145.6,minipi,30.12,2025-01-15T10:08:00Z 
