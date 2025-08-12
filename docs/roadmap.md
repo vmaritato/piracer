@@ -37,7 +37,7 @@
 - ✅ **Performance Profiling**: Detailed analysis tools and metrics
 - ✅ **Benchmark Visualization**: Advanced graphs and performance analysis
 
-## v1.0 (next) - Production & Competition
+## v1.0 (now) - Production & Competition
 
 - 🚧 **y-cruncher Competition**: Match or beat the best π computation engines
 - 🚧 **Multi-Platform**: ARM64, x86_64, RISC-V support
